@@ -6,10 +6,15 @@ class Account < ActiveRecord::Base
     User.create(username: username, account_id: self.id)
   end
 
-  def get_users
-    User.find_by(account_id: self.id)
-  end
-
-
-
+  # def login
+  #
+  # end
+  #
+  # def validate_card
+  #
+  # end
+  #
+  # def change_password(new_password)
+  #
+  # end
 end
