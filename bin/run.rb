@@ -3,16 +3,15 @@ require 'pry'
 
 
 
-<<<<<<< HEAD
 test1 = Account.create(email: "test1@netflix.com", password: "pword", cc: "4444 4444 4444 4448")
 
 user1 = test1.add_user("user1")
 user2 = test1.add_user("user2")
 user3 = test1.add_user("user3")
 
-show1 = Show.create(title: "seinfeld", genre: "comedy", episodes: 40)
-show2 = Show.create(title: "boondocks", genre: "comedy", episodes: 30)
-show3 = Show.create(title: "game of Thrones", genre: "drama", episodes: 50)
+show1 = Show.find_or_create_by(title: "seinfeld", genre: "comedy", episodes: 40)
+show2 = Show.find_or_create_by(title: "boondocks", genre: "comedy", episodes: 30)
+show3 = Show.find_or_create_by(title: "game of thrones", genre: "drama", episodes: 50)
 
 View.create(user_id: user1.id, show_id: show1.id, view_time: DateTime.now)
 # View.create(user_id: user1.id, show_id: show2.id, view_time: DateTime.now)
@@ -29,16 +28,8 @@ if account.class == String
   puts account
   puts "Set your password. Must be at least 6 characters long."
   password = gets.chomp
-  until Account.validate_password(password) do
-    puts "Password not valid. Must be at least 6 characters long."
-    password = gets.chomp
-  end
   puts "Enter a valid credit card"
   cc = gets.chomp
-  until Account.validate_card(cc) do
-    puts "Credit card not valid. Please re-enter."
-    cc = gets.chomp
-  end
   puts "Account successfully created! Please provide a username."
   username = gets.chomp
   account_and_user = Account.new_account(email, password, cc, username)
@@ -57,14 +48,95 @@ else
 end
 
 
+def menu
+  puts ""
+  puts "Select your number of choice:"
+  puts "1: View shows"
+  puts "2: Watch show"
+  puts "3: Get reccomendations"
+  puts "4: View by genre"
+  puts "5: Switch user"
+  puts "6: Create user"
+  puts "7: Logout"
+  choice = gets.chomp
+  return choice
+end
 
-puts "Select a show!"
-Show.display_shows
-show_choice = gets.chomp
-=======
-puts "Welcome to Netflix online."
+def view_shows
+  puts "Select a show!"
+  Show.display_shows
+end
 
->>>>>>> 14b045ca59e3624c210badb6fc3fad5c621927d2
+def watch_a_show(user)
+  Show.display_shows
+  puts ""
+  puts "Please choose title"
+  puts ""
+  show_choice = gets.chomp
+  if Show.find_by(title: show_choice) == nil
+    puts "Invalid show title!"
+  else
+    user.watch(show_choice)
+    puts ""
+    puts "You just watched #{show_choice}!"
+    puts ""
+  end
+end
+
+def switch_user(account)
+  puts "Please choose a username"
+  account.display_users
+  username = gets.chomp
+  user = User.find_by(username: username)
+  if user == nil
+    puts "Invalid user!"
+    switch_user(account)
+  end
+end
+
+def create_user(account)
+  puts "Please choose a username"
+  username = gets.chomp
+  user = User.find_or_create_by(username: username, account_id: account.id)
+  return user
+end
+
+def display_by_genre
+  Show.display_genres
+  puts ""
+  puts "Please choose the genre you'd like to view."
+  puts ""
+  genre_choice = gets.chomp
+  Show.shows_by_genre(genre_choice)
+end
+
+menu_choice = menu
+
+until menu_choice == "7" do
+  if menu_choice == "1"
+    view_shows
+  elsif menu_choice == "2"
+    watch_a_show(user)
+  elsif menu_choice == "3"
+    puts "Write reccomendations method"
+  elsif menu_choice == "4"
+    display_by_genre
+  elsif menu_choice == "5"
+    switch_user(account)
+  elsif menu_choice == "6"
+    user = create_user(account)
+  else
+    puts "Invalid choice. Please try again!"
+  end
+  menu_choice = menu
+end
+
+puts ""
+puts "Goodbye!"
+puts ""
+
+
+
 
 
 
