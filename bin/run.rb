@@ -53,7 +53,7 @@ def menu
   puts "Select your number of choice:"
   puts "1: View shows"
   puts "2: Watch show"
-  puts "3: Get reccomendations"
+  puts "3: Get recommendations"
   puts "4: View by genre"
   puts "5: Switch user"
   puts "6: Create user"
@@ -110,6 +110,31 @@ def display_by_genre
   Show.shows_by_genre(genre_choice)
 end
 
+def get_recommendations(user)
+  unseen_shows = user.recommend
+
+  puts ""
+  puts "We recommend the following shows:"
+  puts ""
+
+  unseen_shows.each do |show|
+    puts show.title
+  end
+
+  puts "*" * 60
+  puts ""
+  puts "Which show would you like to watch?"
+  show_choice = gets.chomp.downcase
+  # if unseen_shows.include?(show_choice) == false
+  #   puts "Invalid show title!"
+  # else
+    user.watch(show_choice)
+    puts ""
+    puts "You just watched #{show_choice}!"
+    puts ""
+  # end
+end
+
 menu_choice = menu
 
 until menu_choice == "7" do
@@ -118,7 +143,7 @@ until menu_choice == "7" do
   elsif menu_choice == "2"
     watch_a_show(user)
   elsif menu_choice == "3"
-    puts "Write reccomendations method"
+    get_recommendations(user)
   elsif menu_choice == "4"
     display_by_genre
   elsif menu_choice == "5"
