@@ -3,6 +3,7 @@ require 'pry'
 
 
 
+<<<<<<< HEAD
 test1 = Account.create(email: "test1@netflix.com", password: "pword", cc: "4444 4444 4444 4448")
 
 user1 = test1.add_user("user1")
@@ -60,6 +61,10 @@ end
 puts "Select a show!"
 Show.display_shows
 show_choice = gets.chomp
+=======
+puts "Welcome to Netflix online."
+
+>>>>>>> 14b045ca59e3624c210badb6fc3fad5c621927d2
 
 
 

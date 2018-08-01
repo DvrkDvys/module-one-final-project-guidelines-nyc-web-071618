@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
     User.create(username: username, account_id: self.id)
   end
 
+<<<<<<< HEAD
   def get_users
     User.find_by(account_id: self.id)
   end
@@ -38,10 +39,20 @@ class Account < ActiveRecord::Base
     new_user = User.create(username: username, account_id: new_account.id)
     return [new_account, new_user]
   end
+=======
+  # def login
+  #
+  # end
+  #
+  # def validate_card
+  #
+  # end
+>>>>>>> 14b045ca59e3624c210badb6fc3fad5c621927d2
   #
   # def change_password(new_password)
   #
   # end
+<<<<<<< HEAD
 
   def self.validate_password(password)
     password.length >=6
@@ -54,4 +65,6 @@ class Account < ActiveRecord::Base
     end
   end
 
+=======
+>>>>>>> 14b045ca59e3624c210badb6fc3fad5c621927d2
 end
