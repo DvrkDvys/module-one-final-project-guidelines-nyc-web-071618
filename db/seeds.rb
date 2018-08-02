@@ -1,6 +1,6 @@
 require_relative '../config/environment'
 
-account1 = Account.create(email: "andrew@netflix.com", password: "pword", cc: "4444 4444 4444 4448")
+account1 = Account.create(email: "andrew@netflix.com", password: "p@ssword", cc: "4444 4444 4444 4448")
 
 account2 = Account.create(email: "jordan@netflix.com", password: "p@ssword", cc: "4444 4444 4444 4448")
 

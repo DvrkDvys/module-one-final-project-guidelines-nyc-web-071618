@@ -118,15 +118,10 @@ def get_recommendations(user)
   puts ""
   puts "Which show would you like to watch?"
   show_choice = gets.chomp.downcase
-  if unseen_shows.include?(show_choice) == false
-    puts "Invalid show title!"
-    return
-  else
-    user.watch(show_choice)
-    puts ""
-    puts "You just watched #{show_choice}!"
-    puts ""
-  end
+  user.watch(show_choice)
+  puts ""
+  puts "You just watched #{show_choice}!"
+  puts ""
 end
 
 menu_choice = menu
