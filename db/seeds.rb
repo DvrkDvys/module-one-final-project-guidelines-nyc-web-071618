@@ -7,7 +7,6 @@ account2 = Account.create(email: "jordan@netflix.com", password: "p@ssword", cc:
 
 andrew = account1.add_user("andrew")
 
-
 jordan = account2.add_user("jordan")
 
 show1 = Show.create(title: "seinfeld", genre: "comedy", episodes: 40)
@@ -28,7 +27,7 @@ Show.create(title: "the defenders", genre: "action", episodes: 16)
 Show.create(title: "the punisher", genre: "action", episodes: 10)
 Show.create(title: "the americans", genre: "spy", episodes: 50)
 Show.create(title: "the killing eve", genre: "spy", episodes: 14)
-Show.create(title: "london spy", genre: "spy, lgbt", episodes: 8)
+Show.create(title: "london spy", genre: "lgbt", episodes: 8)
 Show.create(title: "lovesick", genre: "rom-com", episodes: 18)
 Show.create(title: "sense 8", genre: "lgbt", episodes: 32)
 

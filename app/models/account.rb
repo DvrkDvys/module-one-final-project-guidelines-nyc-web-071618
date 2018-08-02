@@ -52,7 +52,6 @@ class Account < ActiveRecord::Base
     end
   end
 
-
   def self.login(email, password)
     Account.all.each do |account|
       if account.email == email && account.password == password
@@ -67,10 +66,6 @@ class Account < ActiveRecord::Base
     new_user = User.create(username: username, account_id: new_account.id)
     return [new_account, new_user]
   end
-
-  # def change_password(new_password)
-  #
-  # end
 
   def display_users
     puts ""

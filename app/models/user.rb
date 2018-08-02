@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
     end
 
     uniq_genres = all_viewed_genres.uniq
-    binding.pry
     most_viewed_genre = ""
     most_viewed_amount = 0
 
@@ -42,7 +41,6 @@ class User < ActiveRecord::Base
 
   def recommend
     genre = most_viewed_genre
-      # binding.pry
     if most_viewed_genre == []
       return []
     end
@@ -51,7 +49,6 @@ class User < ActiveRecord::Base
     unseen_shows = shows.select do |show|
       self.shows.include?(show) == false
     end
-
     return unseen_shows
   end
 

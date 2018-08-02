@@ -100,6 +100,7 @@ end
 
 def get_recommendations(user)
   unseen_shows = user.recommend
+  binding.pry
   if unseen_shows == []
    puts  "Nothing to recommend yet!"
     return
@@ -117,6 +118,7 @@ def get_recommendations(user)
   puts ""
   puts "Which show would you like to watch?"
   show_choice = gets.chomp.downcase
+  binding.pry
   # if unseen_shows.include?(show_choice) == false
   #   puts "Invalid show title!"
   # else
