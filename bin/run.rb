@@ -1,28 +1,14 @@
 require_relative '../config/environment'
 require 'pry'
 
-
-
-test1 = Account.create(email: "test1@netflix.com", password: "pword", cc: "4444 4444 4444 4448")
-
-user1 = test1.add_user("user1")
-user2 = test1.add_user("user2")
-user3 = test1.add_user("user3")
-
-show1 = Show.find_or_create_by(title: "seinfeld", genre: "comedy", episodes: 40)
-show2 = Show.find_or_create_by(title: "boondocks", genre: "comedy", episodes: 30)
-show3 = Show.find_or_create_by(title: "game of thrones", genre: "drama", episodes: 50)
-
-View.create(user_id: user1.id, show_id: show1.id, view_time: DateTime.now)
-# View.create(user_id: user1.id, show_id: show2.id, view_time: DateTime.now)
-
-
 puts "Welcome to Netflix!"
 puts "Please input your email:"
 email = gets.chomp
+puts "Please input your password:"
+password = gets.chomp
 
-account = Account.login(email)
-user = nil
+
+account = Account.login(email, password)
 
 if account.class == String
   puts account
@@ -44,6 +30,7 @@ else
     puts "Username not valid. Please try again."
     account.display_users
     username = gets.chomp
+    user = User.find_by(username: username)
   end
 end
 
@@ -98,6 +85,7 @@ def create_user(account)
   puts "Please choose a username"
   username = gets.chomp
   user = User.find_or_create_by(username: username, account_id: account.id)
+  puts "*Please logout and log back in if new user not found*"
   return user
 end
 
@@ -112,6 +100,10 @@ end
 
 def get_recommendations(user)
   unseen_shows = user.recommend
+  if unseen_shows == []
+   puts  "Nothing to recommend yet!"
+    return
+  end
 
   puts ""
   puts "We recommend the following shows:"
@@ -159,10 +151,6 @@ end
 puts ""
 puts "Goodbye!"
 puts ""
-
-
-
-
 
 
 binding.pry

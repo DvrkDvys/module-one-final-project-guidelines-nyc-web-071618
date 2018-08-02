@@ -22,8 +22,12 @@ class User < ActiveRecord::Base
     all_viewed_genres = self.shows.map do |show|
       show.genre
     end
+    if all_viewed_genres == []
+      return []
+    end
 
     uniq_genres = all_viewed_genres.uniq
+    binding.pry
     most_viewed_genre = ""
     most_viewed_amount = 0
 
@@ -38,6 +42,10 @@ class User < ActiveRecord::Base
 
   def recommend
     genre = most_viewed_genre
+      # binding.pry
+    if most_viewed_genre == []
+      return []
+    end
 
     shows = Show.where(genre: genre)
     unseen_shows = shows.select do |show|
