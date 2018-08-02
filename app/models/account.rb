@@ -1,7 +1,6 @@
 class Account < ActiveRecord::Base
   has_many :users
 
-
   def add_user(username)
     User.find_or_create_by(username: username, account_id: self.id)
   end
@@ -10,25 +9,61 @@ class Account < ActiveRecord::Base
     User.find_by(account_id: self.id)
   end
 
-  def self.validate_card(cc)
-    cc_array = cc.split("")
-    total = 0
+  def self.validate_email(email)
+    if email.length < 2 || email.include?(" ")
+      puts "Please use a valid email"
+      email_again = gets.chomp
+      self.validate_email(email_again)
+    else
+      return email
+    end
+  end
 
-    no_spaces = cc.select do |char|
+  def self.validate_password(password)
+    if password.length < 8 || password.include?(" ")
+      puts "Password must be at least 8 characters & contain no spaces"
+      password_again = gets.chomp
+      self.validate_password(password_again)
+    else
+      return password
+    end
+  end
+
+  def self.validate_card(cc)
+    if cc.length < 16 || cc.scan(/\D/) == false
+      puts "Card must be at least 16 digits"
+      cc_again = gets.chomp
+      self.validate_card(cc_again)
+    else
+
+    cc_array = cc.split("")
+    no_spaces = cc_array.select do |char|
       char != " "
     end
 
-    if no_spaces.length == 16
-      no_spaces.each do |number|
-          total += number.to_i
+      int = no_spaces.map do |number|
+        number.to_i
       end
+    total = int.reduce(0, :+)
+    if total % 10 == 8
+      return cc
     else
       puts "Card invalid. Please reenter"
       cc_again = gets.chomp
       self.validate_card(cc_again)
+      return cc_again
+      end
     end
+  end
 
-    total % 10 == 0
+  def self.validate_username(username)
+    if username.length < 4 || username.include?(" ")
+      puts "Username must be at least 4 characters & contain no spaces"
+      username_again = gets.chomp
+      self.validate_username(username_again)
+    else
+      return username
+    end
   end
 
   def self.no_account
@@ -47,8 +82,8 @@ class Account < ActiveRecord::Base
     elsif choice == "2"
       return "Thank you for joining Netflix"
     else
-        puts "Invalid"
-        self.no_account
+      puts "Invalid"
+      self.no_account
     end
   end
 

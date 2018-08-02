@@ -3,21 +3,23 @@ require 'pry'
 
 puts "Welcome to Netflix!"
 puts "Please input your email:"
-email = gets.chomp
+email = Account.validate_email(gets.chomp)
 puts "Please input your password:"
-password = gets.chomp
+password = Account.validate_password(gets.chomp)
+
 
 
 account = Account.login(email, password)
 
 if account.class == String
   puts account
-  puts "Set your password. Must be at least 6 characters long."
-  password = gets.chomp
+  puts "Set your password. Must be at least 8 characters long."
+  password = Account.validate_password(gets.chomp)
   puts "Enter a valid credit card"
-  cc = gets.chomp
+  cc = Account.validate_card(gets.chomp)
+
   puts "Account successfully created! Please provide a username."
-  username = gets.chomp
+  username = Account.validate_username(gets.chomp)
   account_and_user = Account.new_account(email, password, cc, username)
   account = account_and_user[0]
   user = account_and_user[1]
@@ -33,7 +35,6 @@ else
     user = User.find_by(username: username)
   end
 end
-
 
 def menu
   puts ""
